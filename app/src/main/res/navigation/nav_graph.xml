@@ -5,22 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/addIdentity">
 
-    <fragment
-        android:id="@+id/addIdentity"
-        android:name="com.example.authenticationapp.fragments.AddIdentity"
-        android:label="add_Identity"
-        >
-    <argument
-        android:name="name"
-        app:argType="string" />
-    <argument
-        android:name="id"
-        android:defaultValue="-1"
-        app:argType="integer" />
-        <action
-            android:id="@+id/action_addIdentity_to_detailFragment2"
-            app:destination="@id/detailFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.authenticationapp.fragments.DetailFragment"
@@ -28,10 +13,27 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="id"
+            android:defaultValue="-1"
             app:argType="integer" />
         <action
             android:id="@+id/action_detailFragment_to_addIdentity"
             app:destination="@id/addIdentity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addIdentity"
+        android:name="com.example.authenticationapp.fragments.AddIdentity"
+        android:label="add_Identity"
+        >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_addIdentity_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
 

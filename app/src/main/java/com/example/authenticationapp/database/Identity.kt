@@ -9,7 +9,6 @@ data class Identity(
 
 @PrimaryKey(autoGenerate = true)
 val id: Int = 0,
-
 @ColumnInfo(name = "name")
 val name:String
 

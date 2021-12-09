@@ -1,6 +1,9 @@
 package com.example.authenticationapp.model
 
+import android.content.ClipData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.authenticationapp.database.Identity
 import com.example.authenticationapp.database.IdentityDao
@@ -29,8 +32,15 @@ class IdentityViewModel(private val identityDao: IdentityDao): ViewModel() {
         )
     }
 
-    fun deleteIdentity() {
+    fun isEntryValid(identityName: String):Boolean {
+        if (identityName.isBlank()) {
+            return false
+        }
+        return true
+    }
 
+    fun retrieveItem(id: Int): LiveData<Identity> {
+        return identityDao.getIdentity(id).asLiveData()
     }
 
 
