@@ -9,7 +9,7 @@ interface IdentityDao {
 
 @Insert(onConflict = OnConflictStrategy.IGNORE)
 suspend fun insert(identity: Identity)
-
+// get always the last [@Id]
 @Query("Select * from identity order by Id Desc Limit 1")
 fun getIdentity(): Flow<Identity>
 
