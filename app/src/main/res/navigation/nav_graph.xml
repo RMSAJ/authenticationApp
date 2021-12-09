@@ -11,10 +11,6 @@
         android:name="com.example.authenticationapp.fragments.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
-        <argument
-            android:name="id"
-            android:defaultValue="-1"
-            app:argType="integer" />
         <action
             android:id="@+id/action_detailFragment_to_addIdentity"
             app:destination="@id/addIdentity" />
@@ -26,10 +22,8 @@
         android:label="add_Identity"
         >
         <argument
-            android:name="name"
-            app:argType="string" />
-        <argument
             android:name="id"
+            android:defaultValue="0"
             app:argType="integer" />
         <action
             android:id="@+id/action_addIdentity_to_detailFragment"

@@ -2,6 +2,7 @@ package com.example.authenticationapp.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ import com.example.authenticationapp.model.IdentityViewModelFactory
 
 class DetailFragment : Fragment() {
 
-    private val navigationArgs: DetailFragmentArgs by navArgs()
+//    private val navigationArgs: DetailFragmentArgs by navArgs()
 
     private val viewModel: IdentityViewModel by activityViewModels{
         IdentityViewModelFactory((activity?.application as IdentityApplication).dataBase
@@ -50,18 +51,19 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id =navigationArgs.id
-        viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) {selectedId ->
-        identity = selectedId
-            bind(identity)
+//        val id =navigationArgs.itemId
+        viewModel.retrieveItem().observe(this.viewLifecycleOwner) { it ->
+            it.let {
+            bind(it)
+          //  println(it)
+            //    println(id)
+            }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
-                InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+
         _binding = null
     }
 

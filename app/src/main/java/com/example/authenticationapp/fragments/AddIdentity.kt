@@ -24,18 +24,15 @@ import org.w3c.dom.Text
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddIdentity.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddIdentity : Fragment() {
 
-private val navigationArgs: DetailFragmentArgs by navArgs()
+    var count = 1
+//    private val navigationArgs: DetailFragmentArgs by navArgs()
 
-private val viewModel: IdentityViewModel by activityViewModels{
-    IdentityViewModelFactory((activity?.application as IdentityApplication).dataBase
-        .identityDao()
+    private val viewModel: IdentityViewModel by activityViewModels {
+        IdentityViewModelFactory(
+            (activity?.application as IdentityApplication).dataBase
+                .identityDao()
         )
     }
     lateinit var identity: Identity
@@ -44,53 +41,50 @@ private val viewModel: IdentityViewModel by activityViewModels{
 
     private val binding get() = _binding!!
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddIdentityBinding.inflate(inflater,container,false)
+        _binding = FragmentAddIdentityBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     private fun bind(identity: Identity) {
         binding.apply {
-            nameInserted.setText(identity.name, TextView.BufferType.EDITABLE)
+            nameInserted.text
         }
     }
 
-    private fun isEntryValid():Boolean{
+    private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.nameInserted.text.toString()
         )
     }
 
     private fun addNewIdentity() {
-        if ( isEntryValid()) {
+        if (isEntryValid()) {
             viewModel.addNewIdentity(
-            binding.nameInserted.text.toString()
+                binding.nameInserted.text.toString()
             )
-        val action = AddIdentityDirections.actionAddIdentityToDetailFragment()
+            val action = AddIdentityDirections.actionAddIdentityToDetailFragment()
             findNavController().navigate(action)
+            count++
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val id = navigationArgs.id
 
-            binding.save.setOnClickListener {
-                addNewIdentity()
-            }
+        binding.save.setOnClickListener {
+            addNewIdentity()
+        }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         // Hide keyboard.
-        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as
-                InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+
         _binding = null
     }
 

@@ -11,13 +11,11 @@ import kotlinx.coroutines.launch
 
 class IdentityViewModel(private val identityDao: IdentityDao): ViewModel() {
 
-
+//    val myId: LiveData<Identity> = identityDao
 
     fun addNewIdentity(identityName: String) {
-
     val newName = getNewIdentity(identityName)
         insertIdentity(newName)
-
     }
 
     private fun insertIdentity(identity: Identity){
@@ -39,10 +37,9 @@ class IdentityViewModel(private val identityDao: IdentityDao): ViewModel() {
         return true
     }
 
-    fun retrieveItem(id: Int): LiveData<Identity> {
-        return identityDao.getIdentity(id).asLiveData()
+    fun retrieveItem(): LiveData<Identity> {
+
+        return identityDao.getIdentity().asLiveData()
     }
-
-
 
 }
